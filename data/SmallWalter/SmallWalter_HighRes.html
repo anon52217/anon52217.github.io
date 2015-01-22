@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cooperative Mapping Visualization</title>
+    <link href="../../resources/visualization.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <!-- Three.js code -->
+    <script type="text/javascript" src="../../resources/threejs/core/three.min.js"></script>
+    <script type="text/javascript" src="../../resources/threejs/core/js/controls/OrbitControls.js"></script>
+    <script type="text/javascript" src="../../resources/threejs/core/dat.gui.min.js"></script>
+    <script type="text/javascript" src="../../resources/threejs/core/js/libs/tween.min.js"></script>
+    <script type="text/javascript" src="../../resources/threejs/core/js/Detector.js"></script>
+
+    <!-- Files with the data we need -->
+    <script type="text/javascript" src="walter_1_traj.js"></script>
+    <script type="text/javascript" src="walter_2_traj.js"></script>
+    <script type="text/javascript" src="walter_3_traj.js"></script>
+    <script type="text/javascript" src="walter_4_traj.js"></script>
+    <script type="text/javascript" src="point_cloud.js"></script>
+    <script type="text/javascript" src="point_cloud_visibilty.js"></script>
+    <!-- Set data directories -->
+    <script type="text/javascript">
+      var DATA_DIR         = "../Walter/"
+      var FISH_DIR    = DATA_DIR + "LargerFisheye/";
+      var FISH_IMAGE_DIRECTORY  = [FISH_DIR + "Walter-1/", FISH_DIR + "Walter-2/", FISH_DIR + "Walter-3/", FISH_DIR + "Walter-4/"];
+      var REC_DIR    = DATA_DIR + "Standard/";
+      var REC_IMAGE_DIRECTORY  = [REC_DIR + "Walter-1/", REC_DIR + "Walter-2/", REC_DIR + "Walter-3/", REC_DIR + "Walter-4/"];
+    </script>
+
+    <!-- Shaders for the point cloud -->
+    <script type="x-shader/x-vertex" id="vertexshader">
+      attribute float alpha;
+      attribute float size;
+      attribute vec3 color;
+      varying float vAlpha;
+      varying vec3 vColor;
+
+      void main() {
+          vAlpha = alpha;
+          vColor = color;
+          vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+          gl_PointSize = size;
+          gl_Position = projectionMatrix * mvPosition;
+      }
+    </script>
+
+    <script type="x-shader/x-fragment" id="fragmentshader">
+      varying vec3 vColor;
+      varying float vAlpha;
+      void main() {
+          gl_FragColor = vec4( vColor, vAlpha );
+      }
+    </script>
+
+    <!-- Set up elements on page -->
+    <div class="imageViewer">
+      <img src="" alt="" id="currentImage" height="240" width="320">
+    </div>
+<!--     <div class="buttonArray">
+      <button class="uiButton" onclick="ResetView()" onmouseup="stopHold()" onmouseout="stopHold()" onmouseover="onButton()">Reset View</button>
+      <button class="uiButton" onclick="TogglePerspective()" onmouseup="stopHold()" onmouseout="stopHold()" onmouseover="onButton()"v>Toggle Perspective</button>
+    </div> -->
+    <div class="playbackControls">
+      <img class="ImageNav" onmousedown="pressPrevButton()" onmouseup="stopHold()" onmouseout="stopHold()" onmouseover="onButton()"src="../../resources/SkipBackwardButton.png" >      
+      <img class="ImageNav" id="PlayPauseButton" onmousedown="pressPlayPauseButton()" onmouseup="stopHold()" onmouseout="stopHold()" onmouseover="onButton()"src="../../resources/PlayButton.png" >
+      <img class="ImageNav" onmousedown="pressNextButton()" onmouseup="stopHold()" onmouseout="stopHold()" onmouseover="onButton()" src="../../resources/SkipForwardButton.png">
+    </div>
+
+    <div id="container"></div> 
+
+    <!-- Main visualization code -->
+    <script type="text/javascript" src="../../main.js"></script>
+  </body>
+</html>

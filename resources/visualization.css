@@ -1,0 +1,66 @@
+body {
+  color: #000;
+  font-family:Monospace;
+  font-size:13px;
+  text-align:center;
+  font-weight: bold;
+
+  background-color: #fff;
+  margin: 0px;
+  overflow: hidden;
+}
+.imageViewer {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  visibility: hidden;
+}
+.buttonArray {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+button {
+  color: black;
+  background: rgb(220, 220, 220);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px;
+  height: 25px;
+  vertical-align: middle;
+}
+button:hover {
+  background: rgb(175, 175, 175);
+}
+button:active {
+  background: rgb(100, 100, 100);
+}
+.uiButton {
+  padding: 7px;
+}
+
+.playbackControls {
+  position: absolute;
+  top: 10px;
+  left: 10px; 
+/*  width: 100%;
+  margin-left: auto ;
+  margin-right: auto ;*/
+}
+img.ImageNav {
+  padding: 3px;
+  border-style: solid;
+  border-color: #e3d428;  
+  border-width: 1px;
+}
+img:hover {
+  background: rgb(80, 80, 80);
+}
+img:active {
+  background: rgb(60, 60, 60);
+}
+img.ImageNav {
+  height: 30px;
+  width: 30px;
+}
